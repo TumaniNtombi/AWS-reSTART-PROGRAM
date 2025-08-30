@@ -8,13 +8,13 @@
 - **Scalability:** Scale resources up or down as needed.
 - **Cost Optimization:** Pay-as-you-go pricing model.
 - **Elasticity:** Quickly adapt to workload changes.
-- **Global Reach:** Deploy applications closer to end users using AWS [Regions & Availability Zones](https://aws.amazon.com/about-aws/global-infrastructure/).
+- **Global Reach:** Deploy applications closer to end users using AWS Regions & Availability Zones.
 - **Security & Reliability:** Managed infrastructure with encryption, compliance, and redundancy.
 
 **Cloud Models:**
-- **IaaS (Infrastructure as a Service):** e.g., [Amazon EC2](https://aws.amazon.com/ec2/) – you manage OS & apps.
-- **PaaS (Platform as a Service):** e.g., [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) – you manage apps, AWS handles OS & infrastructure.
-- **SaaS (Software as a Service):** e.g., [Amazon WorkMail](https://aws.amazon.com/workmail/) – fully managed applications.
+- **IaaS (Infrastructure as a Service):** e.g., Amazon EC2 – you manage OS & apps.
+- **PaaS (Platform as a Service):** e.g., AWS Elastic Beanstalk – you manage apps, AWS handles OS & infrastructure.
+- **SaaS (Software as a Service):** e.g., Amazon WorkMail – fully managed applications.
 
 ---
 
