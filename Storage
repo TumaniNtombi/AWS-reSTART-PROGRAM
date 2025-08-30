@@ -1,1 +1,136 @@
+ AWS Storage Notes
+1. Overview
 
+AWS provides a variety of storage solutions designed for different use cases—from temporary storage for running applications to long-term archival storage. The goal is to provide scalable, durable, and secure storage while giving you flexibility to optimize cost and performance.
+
+Key benefits:
+
+Durability: AWS storage services like S3 are designed for 99.999999999% (11 9s) durability.
+
+Scalability: Automatically scale storage capacity based on demand.
+
+Cost-effectiveness: Pay only for what you use; leverage storage classes for savings.
+
+Global accessibility: Store data in regions around the world for low-latency access.
+
+Integration with AWS services: Easily connect storage to compute, database, and analytics services.
+
+2. Main Services
+Amazon S3 (Simple Storage Service)
+
+Type: Object storage.
+
+Use cases: Backup & restore, static website hosting, data lakes, media storage.
+
+Features:
+
+Buckets: Containers for storing objects (files). Each object has a key (name).
+
+Storage Classes: Standard, Intelligent-Tiering, Infrequent Access, Glacier, Glacier Deep Archive.
+
+Versioning: Keep multiple versions of objects to protect against accidental deletion.
+
+Lifecycle policies: Automate transitioning objects to cheaper storage classes over time.
+
+Encryption: Server-side (SSE-S3, SSE-KMS) or client-side encryption options.
+
+Example:
+Store images from a website in an S3 bucket and automatically move older images to Glacier for long-term storage.
+
+Amazon EBS (Elastic Block Store)
+
+Type: Block storage for EC2 instances (like a virtual hard drive).
+
+Use cases: Databases, boot volumes, transactional workloads.
+
+Features:
+
+Persistent: Data persists even if the EC2 instance is stopped or terminated (unless you choose delete-on-termination).
+
+Snapshot support: Create backups for recovery or duplicating environments.
+
+Performance options: SSD (gp3, io2) and HDD (st1, sc1) volumes for different workloads.
+
+Example:
+Attach an EBS volume to an EC2 instance running a MySQL database for high-performance storage.
+
+Amazon Glacier & Glacier Flexible Retrieval
+
+Type: Low-cost archival storage.
+
+Use cases: Compliance data, long-term backups, rarely accessed files.
+
+Features:
+
+Retrieval times: Flexible retrieval (minutes to hours depending on need).
+
+Cost-effective: Cheapest storage option in AWS.
+
+Integration: Can use S3 lifecycle policies to automatically archive objects.
+
+Example:
+Move yearly financial records from S3 Standard to Glacier for archival.
+
+Amazon EFS (Elastic File System)
+
+Type: Managed file storage for EC2 instances (shared storage).
+
+Use cases: Shared application data, content management systems, big data analytics.
+
+Features:
+
+NFS protocol: Mountable by multiple EC2 instances.
+
+Elastic: Automatically grows or shrinks as files are added or removed.
+
+Highly available: Across multiple AZs in a region.
+
+Example:
+Multiple web servers mount the same EFS file system to serve shared content.
+
+3. Key Concepts
+Buckets
+
+Logical containers in S3 for storing objects.
+
+Each bucket must have a unique name globally.
+
+You can control access using bucket policies and IAM policies.
+
+Storage Classes
+
+Standard: Frequently accessed data.
+
+Infrequent Access (IA): Data accessed less frequently but requires rapid access.
+
+Glacier: Low-cost archival, retrieval in minutes or hours.
+
+Glacier Deep Archive: Lowest-cost storage, retrieval in hours.
+
+Versioning
+
+Protects against accidental overwrites or deletions.
+
+Older versions of objects can be retained indefinitely.
+
+Encryption
+
+Server-side encryption (SSE): AWS manages encryption.
+
+Client-side encryption: You encrypt before sending data to AWS.
+
+KMS integration: Use AWS Key Management Service for managing encryption keys.
+
+4. Best Practices
+
+Use lifecycle policies to move data to cheaper storage classes automatically.
+
+Enable versioning to protect critical data against accidental deletion.
+
+Apply least-privilege permissions with IAM policies to control who can access storage.
+
+Monitor usage and costs with AWS Cost Explorer and S3 storage metrics.
+
+Enable encryption at rest and in transit for sensitive data.
+
+Use tagging to organize buckets and identify data by project, department, or cost center.
