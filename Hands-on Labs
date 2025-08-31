@@ -1,1 +1,20 @@
+# 🗂️ SQL Lab – Database and Table Management
+
+## 🎯 Objective
+In this lab, I practice fundamental SQL statements for managing databases and tables.  
+
+By the end of this lab, I should be able to:  
+- Use the `CREATE` statement to create databases and tables  
+- Use the `SHOW` statement to view available databases and tables  
+- Use the `ALTER` statement to alter the structure of a table  
+- Use the `DROP` statement to delete databases and tables  
+
+When starting this lab, I assume the MySQL environment is already set up and ready.  
+
+---
+
+## 1️⃣ Create a Database
+```sql
+CREATE DATABASE SchoolDB;
+
 
