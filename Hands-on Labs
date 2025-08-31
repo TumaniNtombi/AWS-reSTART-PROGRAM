@@ -1,20 +1,24 @@
-# 🗂️ SQL Lab – Database and Table Management
+🗄️ Database Lab – SQL Basics
 
-## 🎯 Objective
-In this lab, I practice fundamental SQL statements for managing databases and tables.  
+In this lab, I demonstrate working with databases, tables, columns, rows, and conditions.
 
-By the end of this lab, I should be able to:  
-- Use the `CREATE` statement to create databases and tables  
-- Use the `SHOW` statement to view available databases and tables  
-- Use the `ALTER` statement to alter the structure of a table  
-- Use the `DROP` statement to delete databases and tables  
+By the end of this lab, I was able to:
+Use the CREATE statement to create databases and tables
+Use the INSERT statement to add data into a table
+Use the SELECT statement to query data
+Use conditions in queries
+Understand how rows and columns are structured
 
-When starting this lab, I assume the MySQL environment is already set up and ready.  
+-- Create a new database
+CREATE DATABASE world;
 
----
+-- Switch to the database
+USE world;
 
-## 1️⃣ Create a Database
-```sql
-CREATE DATABASE SchoolDB;
-
-
+-- Create a table named 'Country'
+CREATE TABLE Country (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    continent VARCHAR(50),
+    population INT
+);
