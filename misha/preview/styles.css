@@ -1,64 +1,58 @@
-:root {
-  --bg: #0a1020;
-  --card: #121a2f;
-  --text: #dbe4ff;
-  --muted: #95a3cc;
-  --accent: #52e3a4;
-  --warn: #ffce54;
-}
 body {
   margin: 0;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background: linear-gradient(180deg, #0a1020, #05080f);
-  color: var(--text);
+  font-family: Arial, sans-serif;
+  background: #0a0f1c;
+  color: white;
 }
-header, footer {
-  padding: 1rem 1.5rem;
-  background: #0f1730;
-  border-bottom: 1px solid #243056;
+
+.app {
+  display: flex;
+  height: 100vh;
 }
-main {
-  padding: 1rem;
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+.sidebar h2 {
+  color: cyan;
+}
+
+.sidebar a {
+  display: block;
+  color: white;
+  margin: 10px 0;
+  text-decoration: none;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 30px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+/* CARDS */
+.grid {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
 }
+
 .card {
-  background: var(--card);
-  border: 1px solid #27355f;
+  background: rgba(255,255,255,0.08);
+  padding: 20px;
   border-radius: 12px;
-  padding: 1rem;
-}
-label { display:block; margin-bottom: .65rem; }
-input, select, button {
-  width: 100%;
-  margin-top: .25rem;
-  padding: .6rem;
-  border-radius: 8px;
-  border: 1px solid #324578;
-  background: #0d1427;
-  color: var(--text);
-}
-button {
-  cursor: pointer;
-  font-weight: 700;
-  background: #1a3a4b;
-  border-color: #2e5e76;
-}
-button:hover { filter: brightness(1.1); }
-#feed { margin: 0; padding-left: 1rem; max-height: 250px; overflow: auto; }
-.muted { color: var(--muted); }
-.alert {
-  color: #271700;
-  background: var(--warn);
-  padding: .75rem;
-  border-radius: 8px;
-  font-weight: 700;
-}
-.ok {
-  color: #032d1a;
-  background: var(--accent);
-  padding: .75rem;
-  border-radius: 8px;
-  font-weight: 600;
+  backdrop-filter: blur(10px);
 }
