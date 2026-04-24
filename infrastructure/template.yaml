@@ -1,0 +1,174 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Climate Resilience Command Center for Farmers
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 10
+    MemorySize: 256
+    Environment:
+      Variables:
+        FARMS_TABLE: !Ref FarmsTable
+        CLIMATE_TABLE: !Ref ClimateDataTable
+        DEFAULT_REGION_ID: nairobi-zone-1
+
+Resources:
+  ClimateApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins: ['*']
+        AllowHeaders: ['Authorization', 'Content-Type']
+        AllowMethods: [GET, POST, OPTIONS]
+      Auth:
+        Authorizers:
+          CognitoAuthorizer:
+            JwtConfiguration:
+              issuer: !Sub https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}
+              audience:
+                - !Ref UserPoolClient
+            IdentitySource: "$request.header.Authorization"
+        DefaultAuthorizer: CognitoAuthorizer
+
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+
+  FarmsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: farmId
+          AttributeType: S
+        - AttributeName: userId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: farmId
+          KeyType: HASH
+        - AttributeName: userId
+          KeyType: RANGE
+
+  ClimateDataTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: regionId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: regionId
+          KeyType: HASH
+
+  UserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: climate-command-center-pool
+      UsernameAttributes: [email]
+      AutoVerifiedAttributes: [email]
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 12
+          RequireLowercase: true
+          RequireUppercase: true
+          RequireNumbers: true
+          RequireSymbols: true
+      MfaConfiguration: OPTIONAL
+      Schema:
+        - Name: regionId
+          Mutable: true
+          Required: false
+          AttributeDataType: String
+
+  UserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: climate-command-center-client
+      UserPoolId: !Ref UserPool
+      GenerateSecret: false
+      ExplicitAuthFlows:
+        - ALLOW_USER_PASSWORD_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+        - ALLOW_USER_SRP_AUTH
+
+  DashboardFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ..
+      Handler: lambdas/getDashboard.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ClimateDataTable
+      Events:
+        ApiEvent:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref ClimateApi
+            Path: /dashboard
+            Method: GET
+
+  FarmDataFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ..
+      Handler: lambdas/getFarmData.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref FarmsTable
+      Events:
+        ApiEvent:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref ClimateApi
+            Path: /farm-data
+            Method: GET
+
+  AgentsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ..
+      Handler: lambdas/getAgents.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ClimateDataTable
+        - DynamoDBReadPolicy:
+            TableName: !Ref FarmsTable
+      Events:
+        ApiEvent:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref ClimateApi
+            Path: /agents
+            Method: GET
+
+  UpdateFarmFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ..
+      Handler: lambdas/updateFarm.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref FarmsTable
+      Events:
+        ApiEvent:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref ClimateApi
+            Path: /update-farm
+            Method: POST
+
+Outputs:
+  ApiUrl:
+    Value: !Sub https://${ClimateApi}.execute-api.${AWS::Region}.amazonaws.com
+  UserPoolId:
+    Value: !Ref UserPool
+  UserPoolClientId:
+    Value: !Ref UserPoolClient
