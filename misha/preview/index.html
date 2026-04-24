@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Climate Command Center</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo">🌍 CLIMATE OPS</div>
+
+    <nav>
+      <button onclick="showPage('login')">Login</button>
+      <button onclick="showPage('dashboard')">Dashboard</button>
+      <button onclick="showPage('agents')">AI Agents</button>
+      <button onclick="showPage('data')">Farm Data</button>
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- LOGIN -->
+    <section id="login" class="page active">
+      <div class="card center">
+        <h1>Secure Access Portal</h1>
+        <p>Climate Resilience Platform</p>
+
+        <input type="text" placeholder="Email"/>
+        <input type="password" placeholder="Password"/>
+
+        <button onclick="mockLogin()">Sign In</button>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page">
+      <h1>Command Dashboard</h1>
+
+      <div class="grid">
+        <div class="card">
+          <h3>🌡 Climate Risk</h3>
+          <p id="risk">Loading...</p>
+        </div>
+
+        <div class="card">
+          <h3>⚠ Alerts</h3>
+          <p id="alerts">Loading...</p>
+        </div>
+
+        <div class="card">
+          <h3>🌾 Farm Health</h3>
+          <p>Pending data connection</p>
+        </div>
+
+        <div class="card">
+          <h3>🤖 AI Agents</h3>
+          <p>Standby mode</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENTS -->
+    <section id="agents" class="page">
+      <h1>AI Agent System</h1>
+
+      <div class="grid">
+        <div class="card">Weather Intelligence Agent</div>
+        <div class="card">Soil Optimization Agent</div>
+        <div class="card">Irrigation Planner Agent</div>
+      </div>
+    </section>
+
+    <!-- DATA -->
+    <section id="data" class="page">
+      <h1>Farm Data Layer</h1>
+      <div class="card">No database connected yet</div>
+    </section>
+
+  </main>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
