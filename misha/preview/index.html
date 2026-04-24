@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Misha Preview</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Misha — Climate Resilience Platform</h1>
+      <p>Interactive prototype: Collective Climate Memory + Climate Twin Matchmaking</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>1) Log Hyper-local Observation</h2>
+        <form id="obs-form">
+          <label>Community
+            <input id="community" required placeholder="e.g., Kano-North" />
+          </label>
+          <label>Farm ID
+            <input id="farm" required placeholder="e.g., FARM-001" />
+          </label>
+          <label>Hazard Signal
+            <select id="signal" required>
+              <option value="rain_delay">Rain Delay</option>
+              <option value="flood_marker">Flood Marker</option>
+              <option value="pest_sighting">Pest Sighting</option>
+              <option value="heat_stress">Heat Stress</option>
+            </select>
+          </label>
+          <label>Severity (1-10)
+            <input id="severity" type="number" min="1" max="10" value="5" required />
+          </label>
+          <button type="submit">Submit Observation</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>2) Collective Climate Memory Feed</h2>
+        <ul id="feed"></ul>
+      </section>
+
+      <section class="card">
+        <h2>3) Community Early Warning</h2>
+        <div id="alert-box" class="muted">No active alert.</div>
+      </section>
+
+      <section class="card">
+        <h2>4) Climate Twin Matches</h2>
+        <button id="match-btn">Find Climate Twin</button>
+        <div id="match-box" class="muted">No match generated yet.</div>
+      </section>
+
+      <section class="card">
+        <h2>5) Multi-Agent Coordination (Preview)</h2>
+        <ol>
+          <li>Ingestion Agent validates observation payload.</li>
+          <li>Verification Agent correlates with local memory stream.</li>
+          <li>Risk Agent computes probability and severity.</li>
+          <li>Twin Agent identifies similar micro-climate peers.</li>
+          <li>Recommendation Agent emits evidence-backed actions.</li>
+          <li>Safety Agent blocks unsupported/unsafe advice.</li>
+          <li>Audit Agent records decision trace + confidence.</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer>
+      <p>Preview-only UI. Production implementation requires Cognito MFA, encryption, IAM policies, and monitored AWS services as specified in the architecture docs.</p>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
